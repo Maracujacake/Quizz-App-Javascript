@@ -4,25 +4,25 @@ const questionContainerElement = document.getElementById('question-container')
 const questionElement = document.getElementById('question')
 const answerButtonsElement = document.getElementById('answer-buttons')
 
-let shuffledQuestions, currentQuestionIndex
+let shuffledQuestions, QuestaoAtual
 
 startButton.addEventListener('click', iniciarJogo)
 nextButton.addEventListener('click', () => {
-  currentQuestionIndex++
+  QuestaoAtual++
   proximaQuestao()
 })
 
 function iniciarJogo() {
   startButton.classList.add('hide')
   shuffledQuestions = questions.sort(() => Math.random() - .5)
-  currentQuestionIndex = 0
+  QuestaoAtual = 0
   questionContainerElement.classList.remove('hide')
   proximaQuestao()
 }
 
 function proximaQuestao() {
-  resetState()
-  showQuestion(shuffledQuestions[currentQuestionIndex])
+  resetar()
+  showQuestion(shuffledQuestions[QuestaoAtual])
 }
 
 function showQuestion(question) {
@@ -39,7 +39,7 @@ function showQuestion(question) {
   })
 }
 
-function resetState() {
+/* faz voltar pro default ao trocar de pergunta*/ function resetar() {
   clearStatusClass(document.body)
   nextButton.classList.add('hide')
   while (answerButtonsElement.firstChild) {
@@ -54,10 +54,10 @@ function selectAnswer(e) {
   Array.from(answerButtonsElement.children).forEach(button => {
     setStatusClass(button, button.dataset.correct)
   })
-  if (shuffledQuestions.length > currentQuestionIndex + 1) {
+  if (shuffledQuestions.length > QuestaoAtual + 1) {
     nextButton.classList.remove('hide')
   } else {
-    startButton.innerText = 'Restart'
+    startButton.innerText = 'Jogar de novo'
     startButton.classList.remove('hide')
   }
 }
